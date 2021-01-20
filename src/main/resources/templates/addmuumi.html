@@ -1,0 +1,28 @@
+<!DOCTYPE HTML>
+<html xmlns:th="http://www.thymeleaf.org">
+<head>
+<title>Server Programming withSpring Boot</title>
+<meta http-equiv="Content-Type" content="text/html; charset=UTF-8"/>
+<link type="text/css" rel="stylesheet" th:href="@{/styles/cssandjs/muumi.css}" />
+</head>
+<body>
+<h3>Lisää Muumi-astia</h1>
+<div>
+<form th:object="${muumi}" th:action="@{save}" action="#" method="post">
+<label for = "Nimi">Nimi: </label><input type="text" id="nimi" th:field="*{Nimi}"/><br>
+<label for="katlist">Kategoria</label>
+<select id="katlist" th:field="*{kategoria}" class="form-control">
+			<option th:each="kategoria: ${kategoriat}"th:value="${kategoria.kategoriaid}"
+			 th:text="${kategoria.Name}"></option>
+			</select><br>
+			<label for = "url">Kuvan osoite: </label><input type="text" id="kuva" th:field="*{url}"/><br>
+			<div style="clear: both; display: block; height: 10px;"></div>
+						<div style="clear: both; display: block; height: 10px;"></div>
+
+			<input class="btn btn-success" type="submit" value="Lisää astia"></input><br>
+			<form th:action="@{/login}"method="get"><input type="submit"value="Edellinen"/></form>
+			</form>
+</div>
+</body>
+
+</html>

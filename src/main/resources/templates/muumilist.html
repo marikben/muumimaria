@@ -1,0 +1,43 @@
+<!DOCTYPE HTML>
+<html xmlns:th="http://www.thymeleaf.org"
+xmlns:sec="http://www.thymeleaf.org/thymeleaf-extras-springsecurity5">
+<head>
+<link type="text/css" rel="stylesheet" th:href="@{/styles/cssandjs/muumi.css}" />
+<title>Server Programming withSpring Boot</title>
+<meta http-equiv="Content-Type" content="text/html; charset=UTF-8"/>
+</head>
+<body>
+<h4 th:inline="text">Hei [[${#httpServletRequest.remoteUser}]]!</h4>
+<div class="topnav"><form th:action="@{/logout}"method="post"><input type="submit"value="Kirjaudu ulos"/></form>
+<form th:action="@{/add}"method="get"><input type="submit"value="Lisää uusi"/></form></div>
+<main>
+<h3>Muumiastiasto</h3>
+<div class="otsikot">
+<p>Kuva</p>
+<p>Nimi</p>
+<p>Kategoria</p>
+</div>
+<div class="astiat">
+<tr th:each= "muumi : ${muumis}"><br>
+<!-- IF CUSTOMER IS ANONYMOUS -->
+<div th:if="${muumi.url!='' and muumi.url!=NULL}">
+   <div><img th:src="@{${muumi.url}}"/>
+   </div>
+</div>
+<div th:if="${muumi.url==''}">
+   <div><img src="https://webstore.iea.org/content/images/thumbs/default-image_450.png"/>
+   </div>
+</div>
+<div th:if="${muumi.url==NULL}">
+   <div><img src="https://webstore.iea.org/content/images/thumbs/default-image_450.png"/></div>
+</div>
+<td  th:text="${  muumi.Nimi}"></td>
+<td th:text="${muumi.kategoria}"></td>
+<div class="edit"><a th:href="@{/edit/{id}(id=${muumi.id})}">Muokkaa</a></div>
+<td sec:authorize="hasAuthority('ADMIN')"><a th:href="@{/delete/{id}(id=${muumi.id})}">Poista</a></td>
+</tr><br>
+</div>
+
+</main>
+</body>
+</html>
